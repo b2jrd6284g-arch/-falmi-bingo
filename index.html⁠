@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falmi Bingo</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #e94560; }
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 350px;
+            margin: 20px auto;
+        }
+        .cell {
+            background-color: #0f3460;
+            border: 2px solid #e94560;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+        .cell.marked {
+            background-color: #e94560;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Falmi Bingo</h1>
+    <p>Lakkoofsota kee tuquun Bingo godhi!</p>
+
+    <div class="bingo-board" id="board"></div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        const board = document.getElementById('board');
+        let numbers = Array.from({length: 25}, (_, i) => i + 1);
+        numbers.sort(() => Math.random() - 0.5);
+
+        numbers.forEach(num => {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.innerText = num;
+            cell.onclick = () => {
+                cell.classList.toggle('marked');
+            };
+            board.appendChild(cell);
+        });
+    </script>
+</body>
+</html>
